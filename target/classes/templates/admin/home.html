@@ -1,0 +1,266 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+
+<script src="../../js/sockjs-0.3.4.js"></script>
+<script src="../../js/stomp.js"></script>
+<script src="../../js/jquery-2.1.0.min.js"></script>
+
+<script type="text/javascript">
+	var stompClient = null;
+	var socket = null;
+	var whoami = null;
+
+	function setConnected(connected) {
+		document.getElementById('response').innerHTML = '';
+	}
+
+	function connect() {
+
+		var socket = new SockJS('/chat');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame) {
+			whoami = frame.headers['user-name'];
+			setConnected(true);
+
+			console.log('Connected: ' + frame + ' *****************'
+					+ socket.sessionId);
+
+			stompClient.subscribe('/topic/greetings', function(greeting) {
+				showGreeting(JSON.parse(greeting.body));
+			});
+
+			var mysubid = Math.floor((Math.random() * 100) + 1);
+			stompClient.subscribe('/topic/active', function(activeMembers) {
+				showActive(activeMembers.body);
+			}, {
+				id : mysubid
+			});
+
+		});
+
+	}
+
+	function showActive(activeMembers) {
+		var response = document.getElementById('response2');
+		var p = document.createElement('p');
+
+		p.style.wordWrap = 'break-word';
+
+		var div = document.getElementById('response2');
+		while (div.firstChild) {
+			div.removeChild(div.firstChild);
+		}
+
+		var a = JSON.stringify(activeMembers).replace(/[^A-Za-z,]/g, "");
+		p.appendChild(document.createTextNode(a));
+
+		response.appendChild(p);
+	}
+
+	function renderActive(activeMembers) {
+		var previouslySelected = $('.user-selected').text();
+		var usersWithPendingMessages = new Object();
+		$.each($('.pending-messages'), function(index, value) {
+			usersWithPendingMessages[value.id.substring(5)] = true; // strip the user-
+		});
+		var members = $.parseJSON(activeMembers);
+
+	}
+
+	function disconnect() {
+		stompClient.disconnect();
+		setConnected(false);
+		console.log("Disconnected");
+	}
+
+	function sendName() {
+		var name = document.getElementById('name').value;
+		var author = document.getElementById('myId').value;
+		stompClient.send("/app/chat", {}, JSON.stringify({
+			'name' : name,
+			'author' : author
+		}));
+	}
+
+	function sendName() {
+		var name = document.getElementById('name').value;
+		var author = document.getElementById('myId').value;
+		stompClient.send("/app/chat", {}, JSON.stringify({
+			'name' : name,
+			'author' : author
+		}));
+	}
+
+	function showGreeting(message) {
+		var response = document.getElementById('response');
+		var p = document.createElement('p');
+		var author = document.createElement('author');
+		var time = document.createElement('time');
+		var text = document.createElement('text');
+
+		author.style.color = "blue";
+		text.style.fontSize = "medium";
+		text.style.paddingLeft = "3%";
+		time.style.fontSize = "small";
+		time.style.color = "#d9d9d9";
+		time.style.fontWeight = "900";
+		author.style.paddingLeft = "2%";
+
+		p.style.wordWrap = 'break-word';
+
+		author.appendChild(document.createTextNode(message.author));
+		text.appendChild(document.createTextNode(message.message));
+		time.appendChild(document.createTextNode(message.time));
+
+		p.appendChild(time);
+		p.appendChild(author);
+		p.appendChild(text);
+
+		response.appendChild(p);
+	}
+
+	function showGreeting2(message) {
+		var response = document.getElementById('response2');
+		var p = document.createElement('p');
+		p.style.wordWrap = 'break-word';
+		p.style.color = "red";
+		p.appendChild(document.createTextNode(message));
+		response.appendChild(p);
+	}
+
+	var counter = 0;
+
+	function rel() {
+		var elem = document.getElementById('name');
+		var elem2 = document.getElementById("login");
+
+		sendName();
+
+		elem.value = " ";
+
+		setTimeout(scroll, 20);
+	}
+
+	function countMyself() {
+		// Check to see if the counter has been initialized
+		if (typeof countMyself.counter == 'undefined') {
+			// It has not... perform the initialization
+			countMyself.counter = 0;
+		}
+
+		// Do something stupid to indicate the value
+		return ++countMyself.counter;
+	}
+
+	function scroll() {
+		var elem2 = document.getElementById('name2');
+
+		elem2.scrollTop = elem2.scrollHeight;
+	}
+
+	function refresh() {
+		window.location.reload();
+	}
+
+	function init() {
+		var url = "http://www.(url).com";
+		window.location(url);
+	}
+</script>
+
+</head>
+<body onload="connect()">
+
+	<noscript>
+		<h2 style="color: #ff0000">Seems your browser doesn't support
+			Javascript! Websocket relies on Javascript being enabled. Please
+			enable Javascript and reload this page!</h2>
+	</noscript>
+
+
+	<nav class="navbarMain">
+		<div class="container">
+
+
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul>
+					<li class="g"><h2>Rollo Web Chat</h2></li>
+					<li><a href="logout">Log out</a></li>
+
+				</ul>
+
+			</div>
+
+
+		</div>
+
+	</nav>
+
+	<div id="name2" class="chat-body">
+		<h3 id="response"></h3>
+	</div>
+	<div class="chat-online">
+		<div id="userList"></div>
+		<h2 style="font-weight: bold">Users Online</h2>
+		<h3 id="response2"></h3>
+	</div>
+
+
+	<div>
+		<div class="send" id="conversationDiv">
+
+			<input class="se1" type="text" id="name"
+				onkeydown="if (event.keyCode == 13) rel();" />
+
+		</div>
+	</div>
+
+
+
+
+	<div class="container1">
+
+		<!-- The Modal (contains the Sign Up form) -->
+		<div id="id01" class="modal">
+
+
+<form th:action="@{/registration}" method="get">
+		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
+	</form>	
+	
+	<div class="container">
+		<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
+		<form th:action="@{/login}" method="POST" class="form-signin">
+			<h3 class="form-signin-heading" th:text="Welcome"></h3>
+			<br/>
+			 
+			<input type="text" id="email" name="email"  th:placeholder="Login"
+				class="form-control" id="myId"/> <br/> 
+			<input type="password"  th:placeholder="Password"
+				id="password" name="password" class="form-control" /> <br /> 
+				
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+		</form>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+</body>
+</html>

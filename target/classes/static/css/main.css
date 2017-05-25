@@ -1,0 +1,271 @@
+.navbar a{
+	color:white;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  
+}
+
+
+#pleaseLogIn{
+	color:red;
+	margin-top:35%;
+	margin-left:30%;
+}
+
+.tab1{
+	width: 475px;
+}
+.er{
+	color:		#3CB371;
+}
+.g{
+	float:left;
+}
+
+li {
+    float: right;
+    margin-right:10px;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size:18px;
+    border: 1px solid;
+    margin-top:16px;
+    border-radius:5px 5px;
+    background-color:#1E90FF;
+    text-decoration: none;
+    
+    
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+ 
+}
+input[type="text"], input[type="password"], textarea, select { 
+    outline: none;
+}
+.send{
+	width:85.5%;
+	margin-left: 8.2%;
+	margin-top:55.7%;
+	background-color:#2980B9;
+	border-radius: 40px 40px;
+}
+.se1{
+	border-radius: 50px 50px;
+	border: 1px;
+}
+
+.se{
+	background-color:#1E90FF;
+	font-size:15px;
+	font-weight:bold;
+	width:120px;
+	height:35px;
+	border-radius: 10px 10px;
+	
+}
+.nic{
+	width:120px;
+	margin-left:63%;
+	position:absolute;
+	margin-top: 6px;
+	color:white;
+}
+
+.chat-body{
+	width:63%;
+	height:75.5%;
+	background-color: white;
+	position:absolute;
+	margin-left:8%;
+	margin-top:1px;
+	display: inline;
+	overflow-y: auto;
+	
+}
+.chat-online{
+	color: black;
+	width:20%;
+	height:60%;
+	
+	position:absolute;
+	margin-left:73%;
+	border-radius: 0px 0px 5px 5px;
+	background-color: #f2f2f2;
+	margin-top:1%;
+	padding-left:20px;
+	
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.cancelbtn,.signupbtn  {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.sing{
+	color:white; 
+	margin-left:70%;
+	font-size:15px;
+}
+
+.ff{
+	width:30%;
+	margin-left:35%;
+	margin-top:10%;
+	padding-bottom:200px;
+	
+}
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,.signupbtn {
+    float: left;
+    width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+	color: white;
+    width:90%;
+    background-color:#2980B9;
+    border-radius:12px 12px;
+    margin-top:2%
+    
+    
+}
+
+.container2 {
+   
+     padding: 20px;
+     width: 100%;
+     background-color:#2980B9;
+     color:black;
+    border-radius: 5px 5px;
+    font-size: 20px;
+   
+     
+
+}
+
+
+.container4 {
+     padding: 16px;
+     width: 100%;
+     background-color:#2980B9;
+     color:black;
+
+}
+
+.tab2{
+	width:100%;
+}
+.nav-bar{
+	
+	color:black;
+	
+}
+
+
+.container3 {
+   
+    padding: 16px;
+    
+     width: 100%;
+     background-color:#2980B9;
+     color:black;
+}
+
+body {
+
+    background-repeat: no-repeat;
+
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 11% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+.modal-content1 {
+    background-color: #fefefe;
+    margin: 9% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+        width: 100%;
+    }
+}
